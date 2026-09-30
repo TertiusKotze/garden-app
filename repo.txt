@@ -1,2 +1,1 @@
-https://github.com/<your-username>/garden-app
-
+https://github.com/TertiusKotze/garden-app
