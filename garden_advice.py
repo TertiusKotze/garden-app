@@ -106,13 +106,15 @@ def main() -> None:
     """Simple CLI entrypoint."""
     print("Garden Advice App")
     print("Enter month as full name (e.g. March) or number (1-12).")
-    raw_month = input("Month: ").strip()
-    raw_hemisphere = input("Hemisphere (north/south, default north): ").strip() or "north"
+    while True:
+        raw_month = input("Month: ").strip()
+        raw_hemisphere = input("Hemisphere (north/south, default north): ").strip() or "north"
 
-    try:
-        print("\n" + advice_for(raw_month, raw_hemisphere))
-    except ValueError as error:
-        print(f"Input error: {error}")
+        try:
+            print("\n" + advice_for(raw_month, raw_hemisphere))
+            break
+        except ValueError as error:
+            print(f"Input error: {error}\nPlease try again.\n")
 
 
 if __name__ == "__main__":
