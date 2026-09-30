@@ -49,3 +49,12 @@ git checkout main
 git pull origin main
 ```
 
+
+## Example
+
+```text
+Month: March
+Hemisphere (north/south, default north): south
+
+Season: Summer
+```
