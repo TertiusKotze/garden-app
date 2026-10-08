@@ -4,8 +4,8 @@ This project is a small gardening advice app that gives tips based on month and 
 
 ## Files
 
-- `garden_advice.py` - refactored app logic with functions and a small CLI.
-- `test_garden_advice.py` - unit tests for month parsing, season mapping, and validation.
+- `garden_advice.py` - refactored app logic with functions and a small Tkinter GUI.
+- `test_garden_advice.py` - unit tests for month parsing, season mapping, validation, and GUI interactions.
 - `repo.txt` - place your public GitHub repository URL here.
 
 ## Run locally
@@ -13,6 +13,14 @@ This project is a small gardening advice app that gives tips based on month and 
 ```powershell
 python garden_advice.py
 ```
+
+Requires Python with Tkinter and a graphical desktop. If Tkinter is missing on
+Debian/Ubuntu, install it with `sudo apt install python3-tk`.
+
+Enter a full month name or a number from 1 to 12, select a hemisphere (defaults
+to north), then click **Get advice** or press **Enter**. Advice appears in the
+window. Invalid input shows an error pop-up; dismiss it and correct the selected
+month text to try again without restarting the app.
 
 ## Run tests
 
@@ -53,8 +61,9 @@ git pull origin main
 ## Example
 
 ```text
-Month: March
-Hemisphere (north/south, default north): south
-
 Season: Summer
+- Water early in the morning and mulch to reduce evaporation.
+- Sow leafy greens and monitor for early pests.
 ```
+
+Shown in the window for March with the south hemisphere selected.
