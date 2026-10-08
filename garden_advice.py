@@ -6,6 +6,9 @@ maintain and extend.
 
 from __future__ import annotations
 
+import tkinter as tk
+from tkinter import messagebox, ttk
+
 MONTH_TO_NUMBER = {
     "january": 1,
     "february": 2,
@@ -103,20 +106,40 @@ def advice_for(month: str | int, hemisphere: str = "north") -> str:
 
 
 def main() -> None:
-    """Simple CLI entrypoint."""
-    print("Garden Advice App")
-    print("Enter month as full name (e.g. March) or number (1-12).")
-    while True:
-        raw_month = input("Month: ").strip()
-        raw_hemisphere = input("Hemisphere (north/south, default north): ").strip() or "north"
+    """GUI entrypoint: errors show in a pop-up and the app keeps running."""
+    root = tk.Tk()
+    root.title("Garden Advice App")
+    root.geometry("380x300")
 
+    tk.Label(root, text="Month (name or 1-12):").pack(pady=(15, 2))
+    month_entry = tk.Entry(root, width=25)
+    month_entry.pack()
+
+    tk.Label(root, text="Hemisphere:").pack(pady=(10, 2))
+    hemisphere_box = ttk.Combobox(
+        root, values=["north", "south"], state="readonly", width=22
+    )
+    hemisphere_box.set("north")
+    hemisphere_box.pack()
+
+    result_label = tk.Label(root, text="", wraplength=340, justify="left")
+    result_label.pack(pady=15)
+
+    def show_advice(event=None) -> None:
         try:
-            print("\n" + advice_for(raw_month, raw_hemisphere))
-            break
+            result_label.config(
+                text=advice_for(month_entry.get(), hemisphere_box.get())
+            )
         except ValueError as error:
-            print(f"Input error: {error}\nPlease try again.\n")
+            messagebox.showerror("Input error", str(error))
+            month_entry.focus_set()
+            month_entry.select_range(0, tk.END)
+
+    tk.Button(root, text="Get advice", command=show_advice).pack()
+    root.bind("<Return>", show_advice)
+    month_entry.focus_set()
+    root.mainloop()
 
 
 if __name__ == "__main__":
     main()
-
