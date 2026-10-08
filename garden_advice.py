@@ -36,6 +36,15 @@ SEASON_BY_MONTH = {
     },
 }
 
+SEASON_BY_HEMISPHERE_AND_MONTH = {
+    hemisphere: {
+        month: season
+        for season, months in seasons.items()
+        for month in months
+    }
+    for hemisphere, seasons in SEASON_BY_MONTH.items()
+}
+
 SEASON_TIPS = {
     "summer": "Water early in the morning and mulch to reduce evaporation.",
     "autumn": "Add compost and clean up fallen leaves to prevent disease.",
@@ -55,7 +64,7 @@ MONTH_TIPS = {
     9: "Plant herbs and quick crops for a productive season start.",
     10: "Divide overcrowded perennials and refresh mulching.",
     11: "Check irrigation systems and prepare shade cloth if needed.",
-    12: "Review this year\'s garden notes and plan improvements.",
+    12: "Review this year's garden notes and plan improvements.",
 }
 
 
@@ -86,11 +95,7 @@ def get_season(month: str | int, hemisphere: str = "north") -> str:
     if hemisphere_key not in SEASON_BY_MONTH:
         raise ValueError("Hemisphere must be 'north' or 'south'.")
 
-    for season, months in SEASON_BY_MONTH[hemisphere_key].items():
-        if month_number in months:
-            return season
-
-    raise RuntimeError("Unexpected season mapping issue.")
+    return SEASON_BY_HEMISPHERE_AND_MONTH[hemisphere_key][month_number]
 
 
 def advice_for(month: str | int, hemisphere: str = "north") -> str:
@@ -119,4 +124,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
